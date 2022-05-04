@@ -1,5 +1,4 @@
--- Francois
-create FUNCTION [dbo].[SSRS_ParameterSplit]
+CREATE FUNCTION [dbo].[SSRS_ParameterSplit]
    (@RepParam nvarchar(max), @Delim char(1)= ',')
 RETURNS @Values TABLE (Item nvarchar(100))AS
 -- based on John Sansoms StackOverflow answer:

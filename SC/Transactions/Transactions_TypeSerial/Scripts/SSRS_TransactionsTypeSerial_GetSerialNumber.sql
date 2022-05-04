@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[SSRS_Transaction_GetSerialNumber] 
+CREATE PROCEDURE [dbo].[SSRS_TransactionsTypeSerial_GetSerialNumber] 
 	@StartDate datetime,
 	@EndDate datetime, 
 	@Type varchar(MAX) 
@@ -13,10 +13,9 @@ BEGIN
 
     -- Insert statements for procedure here
 	
-	SELECT DISTINCT CASE WHEN ISNULL(SerialNumber,'') = '' THEN 'BLANK' END as SerialNumber
+	SELECT DISTINCT CASE WHEN ISNULL(SerialNumber,'') = '' THEN 'BLANK' ELSE SerialNumber END as SerialNumber
 	FROM TrackingEntity
-	--WHERE SerialNumber <> ''
-	ORDER BY CASE WHEN ISNULL(SerialNumber,'') = '' THEN 'BLANK' END
+	ORDER BY CASE WHEN ISNULL(SerialNumber,'') = '' THEN 'BLANK' ELSE SerialNumber END
 END
 GO
 

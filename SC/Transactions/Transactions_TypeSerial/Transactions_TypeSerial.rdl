@@ -13,7 +13,7 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="GetReportData">
+    <DataSet Name="SSRS_TransactionsTypeSerial_Data">
       <Query>
         <DataSourceName>Granite</DataSourceName>
         <QueryParameters>
@@ -31,7 +31,7 @@
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
-        <CommandText>SSRS_Transaction_GetReportData</CommandText>
+        <CommandText>SSRS_TransactionsTypeSerial_Data</CommandText>
       </Query>
       <Fields>
         <Field Name="ID">
@@ -136,7 +136,7 @@
         </Field>
       </Fields>
     </DataSet>
-    <DataSet Name="GetSerialNumber">
+    <DataSet Name="SSRS_TransactionsTypeSerial_GetSerialNumber">
       <Query>
         <DataSourceName>Granite</DataSourceName>
         <QueryParameters>
@@ -151,7 +151,7 @@
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
-        <CommandText>SSRS_Transaction_GetSerialNumber</CommandText>
+        <CommandText>SSRS_TransactionsTypeSerial_GetSerialNumber</CommandText>
       </Query>
       <Fields>
         <Field Name="SerialNumber">
@@ -160,7 +160,7 @@
         </Field>
       </Fields>
     </DataSet>
-    <DataSet Name="GetTransactionType">
+    <DataSet Name="SSRS_TransactionsTypeSerial_GetTransactionType">
       <Query>
         <DataSourceName>Granite</DataSourceName>
         <QueryParameters>
@@ -172,7 +172,7 @@
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
-        <CommandText>SSRS_Transaction_GetTransactionType</CommandText>
+        <CommandText>SSRS_TransactionsTypeSerial_GetTransactionType</CommandText>
       </Query>
       <Fields>
         <Field Name="Type">
@@ -509,7 +509,7 @@
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>GetReportData</DataSetName>
+            <DataSetName>SSRS_TransactionsTypeSerial_Data</DataSetName>
             <Top>21.13492mm</Top>
             <Left>0mm</Left>
             <Height>19.57916mm</Height>
@@ -599,7 +599,7 @@
       <Prompt>Type</Prompt>
       <ValidValues>
         <DataSetReference>
-          <DataSetName>GetTransactionType</DataSetName>
+          <DataSetName>SSRS_TransactionsTypeSerial_GetTransactionType</DataSetName>
           <ValueField>Type</ValueField>
           <LabelField>Type</LabelField>
         </DataSetReference>
@@ -612,7 +612,7 @@
       <Prompt>Serial No</Prompt>
       <ValidValues>
         <DataSetReference>
-          <DataSetName>GetSerialNumber</DataSetName>
+          <DataSetName>SSRS_TransactionsTypeSerial_GetSerialNumber</DataSetName>
           <ValueField>SerialNumber</ValueField>
           <LabelField>SerialNumber</LabelField>
         </DataSetReference>

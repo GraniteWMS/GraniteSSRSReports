@@ -28,12 +28,9 @@ BEGIN
 		LEFT OUTER JOIN dbo.Location AS L3 ON dbo.TrackingEntity.Location_id = L3.ID 
 		LEFT OUTER JOIN dbo.Users ON dbo.[Transaction].User_id = dbo.Users.ID 
 		LEFT OUTER JOIN dbo.[Document] ON dbo.[Document].ID = dbo.[Transaction].Document_id
-	--WHERE dbo.[Transaction].Type = @Type 
-	--  AND dbo.[Transaction].Date BETWEEN @StartDate AND @EndDate
-	--  AND dbo.[Transaction].[User_id] = @UserID
 	WHERE dbo.[Transaction].Date BETWEEN @StartDate AND @EndDate 
-	AND dbo.[Transaction].Type in (select Item from dbo.fn_SSRS_ParameterSplit(@Type,',')) 
-	AND CASE WHEN ISNULL(dbo.TrackingEntity.SerialNumber,'') = '' THEN 'BLANK' END in (select Item from dbo.fn_SSRS_ParameterSplit(@SerialNo,',')) 
+	AND dbo.[Transaction].Type in (select Item from dbo.SSRS_ParameterSplit(@Type,',')) 
+	AND CASE WHEN ISNULL(dbo.TrackingEntity.SerialNumber,'') = '' THEN 'BLANK' ELSE SerialNumber END in (select Item from dbo.SSRS_ParameterSplit(@SerialNo,',')) 
 	
 
 END

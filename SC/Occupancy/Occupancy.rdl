@@ -4,29 +4,20 @@
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="GraniteDatabase">
-      <DataSourceReference>/GraniteDatabase</DataSourceReference>
-      <rd:SecurityType>None</rd:SecurityType>
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString>Data Source=DESKTOP-1OVSM4V\SQLEXPRESS;Initial Catalog=GraniteDatabaseDE</ConnectString>
+      </ConnectionProperties>
+      <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>f45d34cf-82df-4ac3-a2f9-a8af2a8db3b3</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="Occupancy">
+    <DataSet Name="SSRS_Occupancy_Data">
       <Query>
         <DataSourceName>GraniteDatabase</DataSourceName>
-        <CommandText>SELECT [Name]
-	  ,(rank() over(order by [Name])-1)/20 RowID
-	  ,(row_number()over(order by [Name])-1)%20 RowNum
-	  ,CASE 
-		WHEN ID NOT IN 
-			(SELECT Location_id 
-			 FROM TrackingEntity
-			 WHERE InStock = 1) 
-		THEN 0 
-		ELSE 1 
-	   END AS Occupied
-FROM [Location]
-WHERE [Name] LIKE '%-%'
-ORDER BY [Name]</CommandText>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>SSRS_Occupancy_Data</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -173,7 +164,7 @@ ORDER BY [Name]</CommandText>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>Occupancy</DataSetName>
+            <DataSetName>SSRS_Occupancy_Data</DataSetName>
             <Top>0.56944in</Top>
             <Left>0.19791in</Left>
             <Height>0.36458in</Height>
@@ -253,6 +244,5 @@ ORDER BY [Name]</CommandText>
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
-  <rd:ReportServerUrl>http://bri-granite/GraniteReportServer</rd:ReportServerUrl>
   <rd:ReportID>a500b6f0-0f2d-4c35-83ae-b6fb98bc88db</rd:ReportID>
 </Report>
