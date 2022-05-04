@@ -1,20 +1,4 @@
-USE [GraniteDatabaseDE]
-GO
-
-/****** Object:  StoredProcedure [dbo].[SSRS_Transaction_GetTransactionType]    Script Date: 22/04/26 12:09:15 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-
--- =============================================
--- Author:		<Author,,Name>
--- Create date: <Create Date,,>
--- Description:	<Description,,>
--- =============================================
-create PROCEDURE [dbo].[SSRS_TransactionsTypeSerial_GetTransactionType] 
+CREATE PROCEDURE [dbo].[SSRS_TransactionsTypeSerial_GetTransactionType] 
 	@StartDate datetime,
 	@EndDate datetime 
 AS

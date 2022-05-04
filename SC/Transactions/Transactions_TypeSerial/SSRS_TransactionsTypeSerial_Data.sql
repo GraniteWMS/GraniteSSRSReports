@@ -1,19 +1,3 @@
-USE [GraniteDatabaseDE]
-GO
-
-/****** Object:  StoredProcedure [dbo].[SSRS_Transaction_GetReportData]    Script Date: 22/04/26 12:08:09 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-
--- =============================================
--- Author:		<Author,,Name>
--- Create date: <Create Date,,>
--- Description:	<Description,,>
--- =============================================
 CREATE PROCEDURE [dbo].[SSRS_TransactionsTypeSerial_Data] 
 	-- Add the parameters for the stored procedure here
 	@StartDate datetime,
