@@ -1,3 +1,0 @@
-# Requirements
-
-- SSRS_ParameterSplit
