@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "GraniteSSRS.Reports", "GraniteSSRS.Reports.rptproj", "{97AFEC79-49CB-464A-9021-F6E1711331F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		DebugLocal|Default = DebugLocal|Default
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{97AFEC79-49CB-464A-9021-F6E1711331F8}.Debug|Default.ActiveCfg = Debug
+		{97AFEC79-49CB-464A-9021-F6E1711331F8}.Debug|Default.Build.0 = Debug
+		{97AFEC79-49CB-464A-9021-F6E1711331F8}.Debug|Default.Deploy.0 = Debug
+		{97AFEC79-49CB-464A-9021-F6E1711331F8}.DebugLocal|Default.ActiveCfg = DebugLocal
+		{97AFEC79-49CB-464A-9021-F6E1711331F8}.DebugLocal|Default.Build.0 = DebugLocal
+		{97AFEC79-49CB-464A-9021-F6E1711331F8}.Release|Default.ActiveCfg = Release
+		{97AFEC79-49CB-464A-9021-F6E1711331F8}.Release|Default.Build.0 = Release
+		{97AFEC79-49CB-464A-9021-F6E1711331F8}.Release|Default.Deploy.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A87F7A30-8338-4A4F-89FE-3EFA26C76D94}
+	EndGlobalSection
+EndGlobal
