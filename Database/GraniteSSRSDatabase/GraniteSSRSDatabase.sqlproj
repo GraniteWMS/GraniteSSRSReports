@@ -9,8 +9,7 @@
     <ProjectGuid>{88a7608b-ec2c-4aa5-9cec-18d07f64cef6}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
-    <RootPath>
-    </RootPath>
+    <RootPath />
     <RootNamespace>GraniteSSRSDatabase</RootNamespace>
     <AssemblyName>GraniteSSRSDatabase</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
@@ -22,6 +21,7 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
+    <GenerateCreateScript>True</GenerateCreateScript>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -48,7 +48,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
-    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
     <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
     <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
   </PropertyGroup>
@@ -58,9 +57,78 @@
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <ArtifactReference Include="..\..\..\GraniteDatabase\Lib\GraniteDatabase.dacpac">
-      <HintPath>..\..\..\GraniteDatabase\Lib\GraniteDatabase.dacpac</HintPath>
+    <Build Include="AutoReportPrint.sql" />
+    <Build Include="fn_SSRS_ParameterSplit.sql" />
+    <Build Include="SSRS_Document_PickSlip.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Build>
+    <Build Include="SSRS_Inventory_ItemCategory.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Build>
+    <Build Include="SSRS_Inventory_ItemType.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Build>
+    <Build Include="SSRS_Inventory_LocationCategory.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Build>
+    <Build Include="SSRS_Inventory_LocationERP.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Build>
+    <Build Include="SSRS_Inventory_LocationSite.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Build>
+    <Build Include="SSRS_Inventory_LocationType.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Build>
+    <Build Include="SSRS_Inventory_StockExpiry.sql" />
+    <Build Include="SSRS_Inventory_StockOnHand_Detail.sql" />
+    <Build Include="SSRS_Inventory_StockOnHand_Summary.sql" />
+    <Build Include="SSRS_Inventory_StockToReorder.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Build>
+    <Build Include="SSRS_Inventory_StockToReplenish.sql" />
+    <Build Include="SSRS_KPI_TransactionsPerUser.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Build>
+    <Build Include="SSRS_Transactions.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Build>
+    <Build Include="SSRS_Transactions_DocumentNumber.sql" />
+    <Build Include="SSRS_Transactions_DocumentType.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Build>
+    <Build Include="SSRS_Transactions_TransactionProcess.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Build>
+    <Build Include="SSRS_Transactions_TransactionType.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Build>
+    <Build Include="SSRS_Transactions_TypeUser.sql" />
+    <Build Include="SSRS_Transactions_User.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ArtifactReference Include="..\GraniteDatabase.dacpac">
+      <HintPath>..\GraniteDatabase.dacpac</HintPath>
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+      <DatabaseSqlCmdVariable>GraniteDatabase</DatabaseSqlCmdVariable>
     </ArtifactReference>
+    <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">
+      <HintPath>$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac</HintPath>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+      <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
+    </ArtifactReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SqlCmdVariable Include="GraniteDatabase">
+      <DefaultValue>GraniteDatabase</DefaultValue>
+      <Value>$(SqlCmdVar__1)</Value>
+    </SqlCmdVariable>
+    <SqlCmdVariable Include="SSRS_URL">
+      <DefaultValue>http://xxxxx:40095/PrintSSRSReport.asmx/Report_1Parm</DefaultValue>
+      <Value>$(SqlCmdVar__2)</Value>
+    </SqlCmdVariable>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.md" />
   </ItemGroup>
 </Project>
