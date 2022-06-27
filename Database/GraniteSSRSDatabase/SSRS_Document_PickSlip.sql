@@ -1,12 +1,4 @@
-USE [GraniteDatabase]
-GO
-/****** Object:  StoredProcedure [dbo].[SSRS_Document_PickSlip]    Script Date: 2022/06/24 15:18:18 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-ALTER   PROCEDURE [dbo].[SSRS_Document_PickSlip]
-
+CREATE  PROCEDURE [dbo].[SSRS_Document_PickSlip]
     @DocumentNumber varchar(50)
 	
 AS 
@@ -72,11 +64,11 @@ BEGIN
 		   ,PickSlipDetail.LineNumber 
 		   ,PickSlipDetail.Qty
 		   ,MasterItem.Description		   
-	FROM [Document] AS PickSlip with (nolock) 
-	INNER JOIN [DocumentDetail] AS PickSlipDetail with (nolock) ON PickSlip.ID = PickSlipDetail.Document_id 
-	INNER JOIN [MasterItem] AS MasterItem with (nolock) ON MasterItem.ID = PickSlipDetail.Item_id  
-	LEFT JOIN [DocumentDetail] AS OrderDetail with (nolock) ON OrderDetail.ID = PickSlipDetail.LinkedDetail_id 
-	LEFT JOIN [Document] AS OrderHeader with (nolock) ON OrderDetail.Document_id = OrderHeader.ID 
+	FROM [$(GraniteDatabase)].dbo.[Document] AS PickSlip with (nolock) 
+	INNER JOIN [$(GraniteDatabase)].dbo.[DocumentDetail] AS PickSlipDetail with (nolock) ON PickSlip.ID = PickSlipDetail.Document_id 
+	INNER JOIN [$(GraniteDatabase)].dbo.[MasterItem] AS MasterItem with (nolock) ON MasterItem.ID = PickSlipDetail.Item_id  
+	LEFT JOIN [$(GraniteDatabase)].dbo.[DocumentDetail] AS OrderDetail with (nolock) ON OrderDetail.ID = PickSlipDetail.LinkedDetail_id 
+	LEFT JOIN [$(GraniteDatabase)].dbo.[Document] AS OrderHeader with (nolock) ON OrderDetail.Document_id = OrderHeader.ID 
     WHERE (PickSlipDetail.Completed = 0) 
 	   OR (PickSlipDetail.Completed IS NULL)
 	GROUP BY PickSlip.Number, PickSlip.[Type], MasterItem.Code, MasterItem.Description, MasterItem.UOM, PickSlipDetail.Comment, 
@@ -94,9 +86,9 @@ BEGIN
 		DECLARE detail CURSOR FOR
 		SELECT [TrackingEntity].ID
 		      ,[TrackingEntity].Qty
-		FROM [Location] with (nolock) 
-		INNER JOIN [TrackingEntity] with (nolock) ON [Location].ID = [TrackingEntity].Location_id 
-		INNER JOIN [MasterItem] with (nolock) ON [TrackingEntity].MasterItem_id = [MasterItem].ID
+		FROM [$(GraniteDatabase)].dbo.[Location] with (nolock) 
+		INNER JOIN [$(GraniteDatabase)].dbo.[TrackingEntity] with (nolock) ON [Location].ID = [TrackingEntity].Location_id 
+		INNER JOIN [$(GraniteDatabase)].dbo.[MasterItem] with (nolock) ON [TrackingEntity].MasterItem_id = [MasterItem].ID
 		WHERE ([MasterItem].Code = @ITEMCODE) 
 		  AND ([TrackingEntity].InStock = 1) 
 		  AND ([TrackingEntity].Qty > 0)
@@ -178,9 +170,9 @@ BEGIN
 							, [Location].ERPLocation
 							, [Location].Name AS Location
 							, @OUTSTANDINGQTY
-					FROM [Location] with (nolock) 
-					INNER JOIN [TrackingEntity] with (nolock) ON [Location].ID = [TrackingEntity].Location_id 
-					INNER JOIN [MasterItem] with (nolock) ON [TrackingEntity].MasterItem_id = [MasterItem].ID
+					FROM [$(GraniteDatabase)].dbo.[Location] with (nolock) 
+					INNER JOIN [$(GraniteDatabase)].dbo.[TrackingEntity] with (nolock) ON [Location].ID = [TrackingEntity].Location_id 
+					INNER JOIN [$(GraniteDatabase)].dbo.[MasterItem] with (nolock) ON [TrackingEntity].MasterItem_id = [MasterItem].ID
 					WHERE ([TrackingEntity].id = @ID)
 
 			END

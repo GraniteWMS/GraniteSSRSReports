@@ -1,21 +1,5 @@
-USE [GraniteDatabase]
-GO
-
-/****** Object:  StoredProcedure [dbo].[SSRS_Inventory_StockToReplenish]    Script Date: 2022/06/22 17:50:17 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
--- =============================================
--- Author:      Nicole Trevisan
--- Create date: 2022-06-20
 -- Description:	List all suggested replenish 
--- =============================================
-ALTER       PROCEDURE [dbo].[SSRS_Inventory_StockToReplenish] 
+CREATE PROCEDURE [dbo].[SSRS_Inventory_StockToReplenish] 
 
 AS
 
@@ -36,9 +20,9 @@ BEGIN
 		 , SUM(ISNULL(TrackingEntity.Qty,0)) PickFaceQty 
 		 , MAX(ISNULL(MasterItem.OptimalPickfaceQuantity,0)) - SUM(ISNULL(TrackingEntity.Qty,0)) AS ReplenishQty 
 	--	 , SUM(Replen.QtyOnHand) AvailableQty 
-	FROM MasterItem with (nolock) 
-	LEFT JOIN Location with (nolock) on MasterItem.PickfaceLocation_id = Location.ID  
-	LEFT JOIN TrackingEntity with (nolock) on MasterItem.ID = TrackingEntity.MasterItem_id 
+	FROM [$(GraniteDatabase)].dbo.MasterItem with (nolock) 
+	LEFT JOIN [$(GraniteDatabase)].dbo.Location with (nolock) on MasterItem.PickfaceLocation_id = Location.ID  
+	LEFT JOIN [$(GraniteDatabase)].dbo.TrackingEntity with (nolock) on MasterItem.ID = TrackingEntity.MasterItem_id 
 										  AND MasterItem.PickfaceLocation_id = TrackingEntity.Location_id 
 										  AND TrackingEntity.InStock = 1 
 	--LEFT JOIN (SELECT MI.ID AS MasterID 
@@ -71,8 +55,5 @@ BEGIN
 		 , Location.Name 
 	ORDER BY MAX(ISNULL(MasterItem.OptimalPickfaceQuantity,0)) - SUM(ISNULL(TrackingEntity.Qty,0)) desc 
 
-
 END
 GO
-
-

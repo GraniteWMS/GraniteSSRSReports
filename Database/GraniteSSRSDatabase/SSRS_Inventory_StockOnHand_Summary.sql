@@ -1,20 +1,5 @@
-USE [GraniteDatabase]
-GO
-
-/****** Object:  StoredProcedure [dbo].[SSRS_Inventory_StockOnHand_Summary]    Script Date: 2022/06/22 17:50:05 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-
--- =============================================
--- Author:      Nicole Trevisan
--- Create date: 2022-06-20
 -- Description:	List all stock on hand (summary) 
--- =============================================
-CREATE OR ALTER     PROCEDURE [dbo].[SSRS_Inventory_StockOnHand_Summary] 
+CREATE PROCEDURE [dbo].[SSRS_Inventory_StockOnHand_Summary] 
 
 	 @LocationSite varchar(max)			--- if not used, pass '*' as default
 	,@LocationERP varchar(max)			--- if not used, pass '*' as default
@@ -44,10 +29,10 @@ BEGIN
 		 , CASE WHEN ISNULL([MasterItem].Category,'') = '' THEN '' ELSE [MasterItem].Category END AS ItemCategory
 		 , SUM([TrackingEntity].Qty) AS Qty
 		 , CASE WHEN [TrackingEntity].OnHold = 1 THEN SUM([TrackingEntity].Qty) ELSE 0 END AS QtyOnHold 
-	FROM [MasterItem] with (nolock) 
-	INNER JOIN [TrackingEntity] with (nolock) ON [MasterItem].ID = [TrackingEntity].MasterItem_id 
-	INNER JOIN [Location] with (nolock) ON [TrackingEntity].Location_id = [Location].ID AND [Location].NonStock = 0
-	LEFT OUTER JOIN [CarryingEntity] ON [TrackingEntity].BelongsToEntity_id = [CarryingEntity].ID
+	FROM [$(GraniteDatabase)].dbo.[MasterItem] with (nolock) 
+	INNER JOIN [$(GraniteDatabase)].dbo.[TrackingEntity] with (nolock) ON [MasterItem].ID = [TrackingEntity].MasterItem_id 
+	INNER JOIN [$(GraniteDatabase)].dbo.[Location] with (nolock) ON [TrackingEntity].Location_id = [Location].ID AND [Location].NonStock = 0
+	LEFT OUTER JOIN [$(GraniteDatabase)].dbo.[CarryingEntity] ON [TrackingEntity].BelongsToEntity_id = [CarryingEntity].ID
 	WHERE ([TrackingEntity].Qty > 0) 
 	  AND ([TrackingEntity].InStock = 1)
 	  AND (   @LocationSite = '*' 
@@ -82,5 +67,3 @@ BEGIN
 
 END
 GO
-
-
