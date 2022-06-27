@@ -1,10 +1,3 @@
-USE [GraniteDatabase]
-GO
-/****** Object:  UserDefinedFunction [dbo].[fn_SSRS_ParameterSplit]    Script Date: 2022/04/26 11:18:51 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 CREATE FUNCTION [dbo].[fn_SSRS_ParameterSplit]
    (@RepParam nvarchar(max), @Delim char(1)= ',')
 RETURNS @Values TABLE (Item nvarchar(100))AS
