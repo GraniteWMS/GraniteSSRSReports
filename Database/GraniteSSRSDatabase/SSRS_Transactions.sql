@@ -31,7 +31,7 @@ BEGIN
          , FromTrackingEntity.Barcode AS FromBarcode 
          , FromTrackingEntity.Batch AS FromBatch 
          , FromTrackingEntity.SerialNumber AS FromSerialNumber 
-         , FromTrackingEntity.ExpiryDate AS FromExpiryDate 
+		 , CASE WHEN ISNULL(FromTrackingEntity.ExpiryDate,'') = '' THEN '' ELSE FromTrackingEntity.ExpiryDate END AS FromExpiryDate
 		 , FromPallet.Barcode AS FromPallet 
          , FromMaster.Code AS FromCode 
          , FromMaster.Description AS FromDescription 
@@ -39,7 +39,7 @@ BEGIN
          , ToTrackingEntity.Barcode AS ToBarcode 
          , ToTrackingEntity.Batch AS ToBatch 
          , ToTrackingEntity.SerialNumber AS ToSerialNumber 
-         , ToTrackingEntity.ExpiryDate AS ToExpiryDate 
+		 , CASE WHEN ISNULL(ToTrackingEntity.ExpiryDate,'') = '' THEN '' ELSE ToTrackingEntity.ExpiryDate END AS ToExpiryDate
          , ToPallet.Barcode AS ToPallet
          , ToMaster.Code AS ToCode 
          , ToMaster.Description AS ToDescription 
