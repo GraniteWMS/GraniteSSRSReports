@@ -4,8 +4,11 @@
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="Granite">
-      <DataSourceReference>/GraniteLive</DataSourceReference>
-      <rd:SecurityType>None</rd:SecurityType>
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString>Data Source=LAPTOP-KTMB0FBU;Initial Catalog=Snoek</ConnectString>
+      </ConnectionProperties>
+      <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>b2020d47-4739-4dbf-9a25-80531958dd74</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -149,7 +152,7 @@
         </Field>
       </Fields>
     </DataSet>
-    <DataSet Name="Inventory_StockOnHand_Detail">
+    <DataSet Name="ReportData">
       <Query>
         <DataSourceName>Granite</DataSourceName>
         <QueryParameters>
@@ -338,7 +341,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="GraniteWMS - " &amp; Globals!ReportName</Value>
+                                  <Value EvaluationMode="Constant">GraniteWMS - Stock On Hand Detail</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>7pt</FontSize>
@@ -1536,7 +1539,6 @@ Qty</Value>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>7pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
-                                    <Format>yyyy/MM/dd HH:mm:ss</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1712,7 +1714,7 @@ Qty</Value>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>Inventory_StockOnHand_Detail</DataSetName>
+            <DataSetName>ReportData</DataSetName>
             <Height>1.8cm</Height>
             <Width>38cm</Width>
             <Style>
@@ -1946,6 +1948,5 @@ Qty</Value>
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportServerUrl>http://laptop-ktmb0fbu:40200/GraniteReportServer</rd:ReportServerUrl>
   <rd:ReportID>f7c6e062-a0da-4959-ab4d-c5dcba54276b</rd:ReportID>
 </Report>

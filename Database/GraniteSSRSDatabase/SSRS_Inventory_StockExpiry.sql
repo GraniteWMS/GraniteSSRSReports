@@ -11,7 +11,8 @@ BEGIN
 
 	SELECT RTRIM(TrackingEntity.Barcode) as Barcode, TrackingEntity.MasterItem_id, RTRIM(MasterItem.Code) as Code, RTRIM(MasterItem.Description) as Description, 
 	       MasterItem.Category as ItemCategory, MasterItem.Type as ItemType, 
-	       TrackingEntity.ExpiryDate, TrackingEntity.Qty as QtyOnHand, 
+	       CASE WHEN ISNULL(TrackingEntity.ExpiryDate,'') = '' THEN '' ELSE CONVERT(varchar,TrackingEntity.ExpiryDate,111) END ExpiryDate, 
+		   TrackingEntity.Qty as QtyOnHand, 
 		   Location.ERPLocation, Location.Site as LocationSite, Location.Name AS Location, Location.Category as LocationCategory, Location.Type as LocationType, 
 		   TrackingEntity.SerialNumber, TrackingEntity.Batch, 
 		   TrackingEntity.CreatedDate as ReceivedDate,

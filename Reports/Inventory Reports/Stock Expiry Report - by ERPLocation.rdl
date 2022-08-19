@@ -168,7 +168,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="GraniteWMS - " &amp; Globals!ReportName</Value>
+                                  <Value EvaluationMode="Constant">GraniteWMS - Stock Expiry Report - by ERPLocation</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>7pt</FontSize>
@@ -1331,7 +1331,6 @@ On Hand</Value>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>7pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
-                                    <Format>yyyy/MM/dd</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>

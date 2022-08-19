@@ -1,5 +1,5 @@
 -- Description:	List all transactions within date range, user list, type list, processlist, documenttype list, documentnumber list, Code / Batch / Serial 
-CREATE PROCEDURE [dbo].[SSRS_Transactions] 
+CREATE OR ALTER PROCEDURE [dbo].[SSRS_Transactions] 
 	 @StartDate datetime
 	,@EndDate datetime
 	,@UserID varchar(max)				--- if not used, pass '*' as default
@@ -31,7 +31,7 @@ BEGIN
          , FromTrackingEntity.Barcode AS FromBarcode 
          , FromTrackingEntity.Batch AS FromBatch 
          , FromTrackingEntity.SerialNumber AS FromSerialNumber 
-		 , CASE WHEN ISNULL(FromTrackingEntity.ExpiryDate,'') = '' THEN '' ELSE FromTrackingEntity.ExpiryDate END AS FromExpiryDate
+		 , CASE WHEN ISNULL(FromTrackingEntity.ExpiryDate,'') = '' THEN '' ELSE CONVERT(varchar,FromTrackingEntity.ExpiryDate,111) END AS FromExpiryDate
 		 , FromPallet.Barcode AS FromPallet 
          , FromMaster.Code AS FromCode 
          , FromMaster.Description AS FromDescription 
@@ -39,7 +39,7 @@ BEGIN
          , ToTrackingEntity.Barcode AS ToBarcode 
          , ToTrackingEntity.Batch AS ToBatch 
          , ToTrackingEntity.SerialNumber AS ToSerialNumber 
-		 , CASE WHEN ISNULL(ToTrackingEntity.ExpiryDate,'') = '' THEN '' ELSE ToTrackingEntity.ExpiryDate END AS ToExpiryDate
+		 , CASE WHEN ISNULL(ToTrackingEntity.ExpiryDate,'') = '' THEN '' ELSE CONVERT(varchar,ToTrackingEntity.ExpiryDate,111) END AS ToExpiryDate
          , ToPallet.Barcode AS ToPallet
          , ToMaster.Code AS ToCode 
          , ToMaster.Description AS ToDescription 

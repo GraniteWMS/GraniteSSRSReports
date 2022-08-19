@@ -33,7 +33,7 @@ BEGIN
 		 , CASE WHEN ISNULL([CarryingEntity].Barcode,'') = '' THEN '' ELSE [CarryingEntity].Barcode END AS Pallet
 		 , CASE WHEN ISNULL([TrackingEntity].SerialNumber,'') = '' THEN '' ELSE [TrackingEntity].SerialNumber END AS SerialNumber
 		 , CASE WHEN ISNULL([TrackingEntity].Batch,'') = '' THEN '' ELSE [TrackingEntity].Batch END AS Batch
-		 , CASE WHEN ISNULL([TrackingEntity].ExpiryDate,'') = '' THEN '' ELSE [TrackingEntity].ExpiryDate END AS ExpiryDate
+		 , CASE WHEN ISNULL([TrackingEntity].ExpiryDate,'') = '' THEN '' ELSE CONVERT(varchar,[TrackingEntity].ExpiryDate,111) END AS ExpiryDate
 		 , [TrackingEntity].CreatedDate 
 		 , [TrackingEntity].ManufactureDate 
 		 , [TrackingEntity].OnHold 
@@ -75,7 +75,7 @@ BEGIN
 		   , [CarryingEntity].Barcode 
 		   , [TrackingEntity].SerialNumber
 		   , [TrackingEntity].Batch
-		   , [TrackingEntity].ExpiryDate
+		   , CASE WHEN ISNULL([TrackingEntity].ExpiryDate,'') = '' THEN '' ELSE CONVERT(varchar,[TrackingEntity].ExpiryDate,111) END
 		   , [TrackingEntity].CreatedDate
 		   , [TrackingEntity].ManufactureDate
 		   , [TrackingEntity].OnHold 
