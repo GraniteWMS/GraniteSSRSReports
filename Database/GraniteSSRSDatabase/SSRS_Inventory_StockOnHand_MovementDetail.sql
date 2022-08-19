@@ -8,7 +8,7 @@ CREATE OR ALTER   PROCEDURE [dbo].[SSRS_Inventory_StockOnHand_MovementDetail]
 
 AS
 
--- exec [SSRS_Inventory_SlowMoversDetail] 'TR', 0
+-- exec [SSRS_Inventory_StockOnHand_MovementDetail] 'TR', 0
 
 BEGIN
 
@@ -37,11 +37,11 @@ BEGIN
 		 , SUM(tbl5.QtyIn) QtyIn5
 		 , SUM(tbl5.QtyOut) QtyOut5
 		 , DATEDIFF(day,CONVERT(Date, TE.CreatedDate),CONVERT(Date, GETDATE())) DaysInStock 
-	FROM TrackingEntity TE 
-	INNER JOIN MasterItem MI ON TE.MasterItem_id = MI.ID 
-	INNER JOIN Location L ON TE.Location_id = L.ID AND L.NonStock = 0   
+	FROM [$(GraniteDatabase)].dbo.TrackingEntity TE 
+	INNER JOIN [$(GraniteDatabase)].dbo.MasterItem MI ON TE.MasterItem_id = MI.ID 
+	INNER JOIN [$(GraniteDatabase)].dbo.Location L ON TE.Location_id = L.ID AND L.NonStock = 0   
 	--OUTER APPLY (SELECT TOP 1 CONVERT(Date, TR.Date) FirstDate    
-	--				FROM [Transaction] TR
+	--				FROM [$(GraniteDatabase)].dbo.[Transaction] TR
 	--				WHERE TR.TrackingEntity_id = TE.ID  
 	--				AND TR.[Type] IN ('RECEIVE', 'TAKEON', 'MANUFACTURE')
 	--				GROUP BY CONVERT(Date, TR.Date) 
@@ -49,7 +49,7 @@ BEGIN
 	--				) tbl   -- First Transaction date
 	OUTER APPLY (SELECT CASE WHEN TR.Type IN ('RECEIVE', 'TAKEON', 'MANUFACTURE') THEN SUM(TR.ToQty) - SUM(TR.FromQty) ELSE 0 END QtyIn
 	                  , CASE WHEN TR.Type NOT IN ('RECEIVE', 'TAKEON', 'MANUFACTURE') THEN SUM(TR.ToQty) - SUM(TR.FromQty) ELSE 0 END QtyOut 
-					FROM [Transaction] TR
+					FROM [$(GraniteDatabase)].dbo.[Transaction] TR
 					WHERE TR.TrackingEntity_id = TE.ID  
 					  AND TR.[Type] IN ('PICK', 'TRANSFER', 'CONSUME', 'RECEIVE', 'TAKEON', 'MANUFACTURE')
 					  AND (CONVERT(Date, TR.Date) > DATEADD(month,-3,CONVERT(Date, GETDATE())))  
@@ -57,7 +57,7 @@ BEGIN
 					) tbl1  -- 1st date bucket 
 	OUTER APPLY (SELECT CASE WHEN TR.Type IN ('RECEIVE', 'TAKEON', 'MANUFACTURE') THEN SUM(TR.ToQty) - SUM(TR.FromQty) ELSE 0 END QtyIn
 	                  , CASE WHEN TR.Type NOT IN ('RECEIVE', 'TAKEON', 'MANUFACTURE') THEN SUM(TR.ToQty) - SUM(TR.FromQty) ELSE 0 END QtyOut 
-					FROM [Transaction] TR
+					FROM [$(GraniteDatabase)].dbo.[Transaction] TR
 					WHERE TR.TrackingEntity_id = TE.ID  
 					  AND TR.[Type] IN ('PICK', 'TRANSFER', 'CONSUME', 'RECEIVE', 'TAKEON', 'MANUFACTURE')
 					  AND (CONVERT(Date, TR.Date) BETWEEN DATEADD(month,-6,CONVERT(Date, GETDATE())) AND DATEADD(month,-3,CONVERT(Date, GETDATE())))  
@@ -65,7 +65,7 @@ BEGIN
 					) tbl2  -- 2nd date bucket 
 	OUTER APPLY (SELECT CASE WHEN TR.Type IN ('RECEIVE', 'TAKEON', 'MANUFACTURE') THEN SUM(TR.ToQty) - SUM(TR.FromQty) ELSE 0 END QtyIn
 	                  , CASE WHEN TR.Type NOT IN ('RECEIVE', 'TAKEON', 'MANUFACTURE') THEN SUM(TR.ToQty) - SUM(TR.FromQty) ELSE 0 END QtyOut 
-					FROM [Transaction] TR
+					FROM [$(GraniteDatabase)].dbo.[Transaction] TR
 					WHERE TR.TrackingEntity_id = TE.ID  
 					  AND TR.[Type] IN ('PICK', 'TRANSFER', 'CONSUME', 'RECEIVE', 'TAKEON', 'MANUFACTURE')
 					  AND (CONVERT(Date, TR.Date) BETWEEN DATEADD(month,-9,CONVERT(Date, GETDATE())) AND DATEADD(month,-6,CONVERT(Date, GETDATE())))  
@@ -73,7 +73,7 @@ BEGIN
 					) tbl3  -- 3rd date bucket 
 	OUTER APPLY (SELECT CASE WHEN TR.Type IN ('RECEIVE', 'TAKEON', 'MANUFACTURE') THEN SUM(TR.ToQty) - SUM(TR.FromQty) ELSE 0 END QtyIn
 	                  , CASE WHEN TR.Type NOT IN ('RECEIVE', 'TAKEON', 'MANUFACTURE') THEN SUM(TR.ToQty) - SUM(TR.FromQty) ELSE 0 END QtyOut 
-					FROM [Transaction] TR
+					FROM [$(GraniteDatabase)].dbo.[Transaction] TR
 					WHERE TR.TrackingEntity_id = TE.ID  
 					  AND TR.[Type] IN ('PICK', 'TRANSFER', 'CONSUME', 'RECEIVE', 'TAKEON', 'MANUFACTURE')
 					  AND (CONVERT(Date, TR.Date) BETWEEN DATEADD(month,-12,CONVERT(Date, GETDATE())) AND DATEADD(month,-9,CONVERT(Date, GETDATE())))  
@@ -81,7 +81,7 @@ BEGIN
 					) tbl4  -- 4th date bucket 
 	OUTER APPLY (SELECT CASE WHEN TR.Type IN ('RECEIVE', 'TAKEON', 'MANUFACTURE') THEN SUM(TR.ToQty) - SUM(TR.FromQty) ELSE 0 END QtyIn
 	                  , CASE WHEN TR.Type NOT IN ('RECEIVE', 'TAKEON', 'MANUFACTURE') THEN SUM(TR.ToQty) - SUM(TR.FromQty) ELSE 0 END QtyOut 
-					FROM [Transaction] TR
+					FROM [$(GraniteDatabase)].dbo.[Transaction] TR
 					WHERE TR.TrackingEntity_id = TE.ID  
 					  AND TR.[Type] IN ('PICK', 'TRANSFER', 'CONSUME', 'RECEIVE', 'TAKEON', 'MANUFACTURE')
 					  AND (CONVERT(Date, TR.Date) < DATEADD(month,-12,CONVERT(Date, GETDATE())))  
