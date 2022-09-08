@@ -134,11 +134,13 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="GraniteWMS - " &amp; Globals!ReportName</Value>
+                                  <Value>GraniteWMS - KPI - Weekly by User - Scrap</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                    <Color>#000000</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1458,7 +1460,7 @@ Count</Value>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>3</NumberOfRows>
+      <NumberOfRows>1</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
